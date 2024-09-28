@@ -4716,7 +4716,7 @@ void sched_show_task(struct task_struct *p)
 	show_stack(p, NULL);
 }
 
-void show_state_filter(unsigned long state_filter)
+void show_state_thread_filter(unsigned long state_filter, unsigned long threads_filter)
 {
 	struct task_struct *g, *p;
 
@@ -4734,7 +4734,10 @@ void show_state_filter(unsigned long state_filter)
 		 * console might take a lot of time:
 		 */
 		touch_nmi_watchdog();
-		if (!state_filter || (p->state & state_filter))
+		if ((!state_filter || (p->state & state_filter)) &&
+			(((threads_filter & SHOW_KTHREADS) && (!p->mm))
+			|| ((threads_filter & SHOW_APP_THREADS) && (p->mm))))
+			sched_show_task(p);
 			sched_show_task(p);
 	} while_each_thread(g, p);
 
@@ -4749,6 +4752,11 @@ void show_state_filter(unsigned long state_filter)
 	 */
 	if (!state_filter)
 		debug_show_all_locks();
+}
+
+void show_state_filter(unsigned long state_filter)
+{
+	show_state_thread_filter(state_filter, SHOW_KTHREADS | SHOW_APP_THREADS);
 }
 
 void __cpuinit init_idle_bootup_task(struct task_struct *idle)

@@ -3813,6 +3813,11 @@ static int __tracing_resize_ring_buffer(struct trace_array *tr,
 	return ret;
 }
 
+unsigned long tracing_get_trace_buf_size(void)
+{
+	return trace_buf_size;
+}
+
 static ssize_t tracing_resize_ring_buffer(struct trace_array *tr,
 					  unsigned long size, int cpu_id)
 {

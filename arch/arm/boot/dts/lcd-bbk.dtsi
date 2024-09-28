@@ -1,0 +1,56 @@
+/*
+ * RockChip. DisplayPort screen BBK
+ *
+ */
+
+ / {
+
+    disp_timings: display-timings {
+                    native-mode = <&timing0>;
+                    timing0: timing0 {
+            screen-type = <SCREEN_EDP>;
+            out-face    = <OUT_P666>;
+            clock-frequency = <205000000>;
+            hactive = <1536>;
+            vactive = <2048>;
+            hback-porch = <52>;
+            hfront-porch = <16>;
+            vback-porch = <3>;
+            vfront-porch = <7>;
+            hsync-len = <15>;
+            vsync-len = <1>;
+            hsync-active = <0>;
+            vsync-active = <0>;
+            de-active = <0>;
+            pixelclk-active = <0>;
+            swap-rb = <0>;
+            swap-rg = <0>;
+            swap-gb = <0>;
+                     };
+           };
+    disp_timings1: display-timings1 {
+                    compatible = "rockchip,display-timings";
+                    native-mode = <&timing1>;
+                    timing1: timing1 {
+            screen-type = <SCREEN_DUAL_MIPI>;
+            out-face = <0>;
+            clock-frequency = <230000000>;
+            hactive = <1536>;
+            vactive = <2048>;
+            hback-porch = <200>;
+            hfront-porch = <200>;
+            vback-porch = <40>;
+            vfront-porch = <40>;
+            hsync-len = <4>;
+            vsync-len = <2>;
+            hsync-active = <0>;
+            vsync-active = <0>;
+            de-active = <0>;
+            lvds-format = <1>;
+            pixelclk-active = <0>;
+            swap-gb = <0>;
+            swap-rb = <0>;
+            swap-rg = <0>;       
+            };
+        };
+};
